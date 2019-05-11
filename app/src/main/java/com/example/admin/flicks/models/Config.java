@@ -20,7 +20,7 @@ public class Config {
         //get the image base url
         imageBaseUrl = images.getString( "secure_base_url");
         // get the poster size
-        JSONArray posterSizeOptions = images.getJSONArray("poster_size");
+        JSONArray posterSizeOptions = images.getJSONArray("poster_sizes");
         // use the option at index 3 or w342 as a fallback
         posterSize = posterSizeOptions.optString(3,"w342");
         //parse the backdrop sizes and use the option at index 1 or w780 as a fallback

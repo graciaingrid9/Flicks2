@@ -51,7 +51,7 @@ public class MovieListActivity extends AppCompatActivity {
         client = new AsyncHttpClient();
         // initialize the list of movies
         movies = new ArrayList<>(  );
-        // get the configuration on app creation
+        // get the getConfiguration on app creation
          getChangingConfigurations();
         // initialize the adapter - movies array cannot be reinitialized after this point
         adapter = new MovieAdapter( movies );
@@ -60,6 +60,8 @@ public class MovieListActivity extends AppCompatActivity {
         rvMovies = (RecyclerView) findViewById( R.id.rvMovies );
         rvMovies.setLayoutManager(new LinearLayoutManager( this ) );
         rvMovies.setAdapter(adapter);
+        getConfiguration();
+
 
     }
     // get the list of currently playing movies from the API
@@ -96,8 +98,8 @@ public class MovieListActivity extends AppCompatActivity {
         } );
     }
 
-    // get the configuration from the API
-    private void configuration(){
+    // get the getConfiguration from the API
+    private void getConfiguration(){
         // create the url
         String url = API_BASE_URL + "/configuration";
         // set the request parameters
@@ -112,7 +114,7 @@ public class MovieListActivity extends AppCompatActivity {
                 try {
                     config = new Config( response );
                     Log.i( TAG,
-                            String.format( "loaded configuration with imageBaseUrl %s and posterSize %s",
+                            String.format( "loaded getConfiguration with imageBaseUrl %s and posterSize %s",
                                    config.getImageBaseUrl(),
                                    config.getPosterSize() ) );
                     // pass config to adapter
@@ -120,14 +122,14 @@ public class MovieListActivity extends AppCompatActivity {
                     // get the now playing movie list
                     getNowPlaying();
                 } catch (JSONException e) {
-                   logError("Failed parsing configuration", e , true);
+                   logError("Failed parsing getConfiguration", e , true);
 
                 }
             }
 
             @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-               logError("Failed getting configuration", throwable, true );
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                super.onFailure( statusCode, headers, throwable, errorResponse );
             }
         });
     }
